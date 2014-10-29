@@ -1,8 +1,7 @@
 class artifactory($jdk = "java-1.7.0-openjdk",
-  $sourceforge = "http://downloads.sourceforge.net/project",
-  $version = "3.0.1") {
-
-# http://downloads.sourceforge.net/project/artifactory/artifactory/2.5.1.1/artifactory-2.5.1.1.rpm
+  $source = "http://downloads.sourceforge.net/project/artifactory/artifactory",
+  $artifact = "artifactory" ,
+  $version = "3.4.1") {
 
   if ! defined (Package[$jdk]) {
     package { $jdk: ensure => installed }
@@ -11,14 +10,14 @@ class artifactory($jdk = "java-1.7.0-openjdk",
   package { 'artifactory':
     ensure => installed,
     provider => "rpm",
-    source => "$sourceforge/artifactory/artifactory/$version/artifactory-$version.rpm",
+    source => "$source/$artifact-$version.rpm",
     require => Package[$jdk]
   }
 
   service { 'artifactory':
     ensure    => 'running',
     enable => "true",
-    hasstatus => "false",
+    hasstatus => "true",
     provider => "redhat",
     require => Package['artifactory'] 
   }
