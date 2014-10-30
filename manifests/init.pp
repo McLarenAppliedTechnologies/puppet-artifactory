@@ -1,6 +1,6 @@
 class artifactory($jdk = "java-1.7.0-openjdk",
   $source = "http://downloads.sourceforge.net/project/artifactory/artifactory",
-  $artifact = "artifactory-powerpack-rpm",
+  $artifact = "artifactory",
   $s3_sourced = false,
   $version = "3.4.1") {
 
