@@ -29,16 +29,14 @@ class artifactory($jdk = "java-1.7.0-openjdk",
     require => Package[$jdk]
   }
 
-  if $behind_proxy {
-    file { '/var/opt/jfrog/artifactory/tomcat/conf/Catalina/localhost/artifactory.xml':
-      ensure => file,
-      source => 'puppet:///modules/artifactory/artifactory.xml',
-      mode   => '0775',
-      owner  => root,
-      group  => root,
-      require => Package['artifactory'],
-      notify  => Service['artifactory'],
-    }
+  file { '/var/opt/jfrog/artifactory/tomcat/conf/Catalina/localhost/artifactory.xml':
+    ensure  => file,
+    content => template('artifactory/artifactory.xml.erb'),
+    mode    => '0775',
+    owner   => root,
+    group   => root,
+    require => Package['artifactory'],
+    notify  => Service['artifactory'],
   }
 
   service { 'artifactory':
