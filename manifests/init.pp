@@ -1,8 +1,8 @@
 class artifactory($jdk = "java-1.7.0-openjdk",
-  $source = "http://downloads.sourceforge.net/project/artifactory/artifactory",
+  $source = "https://bintray.com/artifact/download/jfrog/artifactory-rpms",
   $artifact = "artifactory",
   $s3_sourced = false,
-  $version = "3.4.1",
+  $version = "3.9.2",
   $behind_proxy = false) {
 
   if ! defined (Package[$jdk]) {
