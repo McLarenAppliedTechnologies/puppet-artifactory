@@ -1,8 +1,9 @@
 class artifactory($jdk = "java-1.7.0-openjdk",
-  $source = "http://downloads.sourceforge.net/project/artifactory/artifactory",
+  $source = "https://bintray.com/artifact/download/jfrog/artifactory-rpms",
   $artifact = "artifactory",
   $s3_sourced = false,
-  $version = "3.4.1") {
+  $version = "3.9.2",
+  $behind_proxy = false) {
 
   if ! defined (Package[$jdk]) {
     package { $jdk: ensure => installed }
@@ -28,6 +29,16 @@ class artifactory($jdk = "java-1.7.0-openjdk",
     require => Package[$jdk]
   }
 
+  file { '/var/opt/jfrog/artifactory/tomcat/conf/Catalina/localhost/artifactory.xml':
+    ensure  => file,
+    content => template('artifactory/artifactory.xml.erb'),
+    mode    => '0775',
+    owner   => root,
+    group   => root,
+    require => Package['artifactory'],
+    notify  => Service['artifactory'],
+  }
+
   service { 'artifactory':
     ensure    => 'running',
     enable => "true",
@@ -35,4 +46,5 @@ class artifactory($jdk = "java-1.7.0-openjdk",
     provider => "redhat",
     require => Package['artifactory']
   }
+
 }

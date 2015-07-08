@@ -1,5 +1,5 @@
 name 'maestrodev-artifactory'
-version '1.0.2'
+version '1.0.4'
 
 author 'maestrodev'
 license 'Apache License, Version 2.0'

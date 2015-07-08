@@ -1,0 +1,7 @@
+<Context path="/artifactory" docBase="${artifactory.home}/webapps/artifactory.war" processTlds="false">
+    <Manager pathname="" />
+    <%- if @behind_proxy -%>
+    <Valve className="org.apache.catalina.valves.RemoteIpValve" protocolHeader="x-forwarded-proto"/>
+    <%- end -%>
+</Context>
+
